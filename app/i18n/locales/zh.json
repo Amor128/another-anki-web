@@ -1,0 +1,87 @@
+{
+  "common": {
+    "appName": "Anki 网页版",
+    "loading": "加载中...",
+    "error": "错误",
+    "success": "成功",
+    "cancel": "取消",
+    "submit": "提交",
+    "delete": "删除",
+    "edit": "编辑",
+    "close": "关闭",
+    "search": "搜索"
+  },
+  "navigation": {
+    "home": "首页",
+    "browser": "浏览器",
+    "addNote": "添加卡片",
+    "settings": "设置"
+  },
+  "home": {
+    "title": "欢迎来到 Anki 网页版",
+    "subtitle": "一个现代化的网页界面，用于通过 AnkiConnect 管理你的 Anki 卡片。",
+    "browserTitle": "浏览器",
+    "browserDescription": "浏览和管理你的卡片",
+    "addNoteTitle": "添加卡片",
+    "addNoteDescription": "创建新的卡片",
+    "studyTitle": "学习",
+    "studyDescription": "即将推出...",
+    "featuresTitle": "功能特性",
+    "features": [
+      "使用 Anki 查询语法搜索卡片",
+      "查看详细的卡片信息",
+      "管理标签和卡片状态",
+      "批量操作卡片",
+      "查看学习统计"
+    ],
+    "requirementsTitle": "系统要求",
+    "requirements": [
+      "已安装并运行 Anki Desktop",
+      "已安装 AnkiConnect 插件",
+      "AnkiConnect 监听 http://localhost:8765"
+    ]
+  },
+  "addNote": {
+    "title": "添加卡片",
+    "deck": "卡组",
+    "noteType": "卡片类型",
+    "fields": "字段",
+    "tags": "标签",
+    "tagsPlaceholder": "输入标签，用空格分隔...",
+    "tagsHint": "用空格分隔多个标签",
+    "createButton": "创建卡片",
+    "creating": "创建中...",
+    "successMessage": "卡片创建成功！",
+    "selectDeck": "选择卡组...",
+    "selectNoteType": "选择卡片类型...",
+    "noDeckAvailable": "没有可用的卡组",
+    "noModelsAvailable": "没有可用的卡片类型",
+    "loadingDecks": "加载中...",
+    "errorLoadingDecks": "加载卡组时出错",
+    "validation": {
+      "selectDeck": "请选择一个卡组",
+      "selectModel": "请选择一个卡片类型",
+      "fillAllFields": "请填写所有字段"
+    },
+    "error": "创建卡片失败，请重试。"
+  },
+  "browser": {
+    "title": "浏览器",
+    "searchPlaceholder": "搜索卡片...",
+    "noResults": "未找到卡片",
+    "cardCount": "找到的卡片",
+    "suspend": "暂停",
+    "unsuspend": "恢复",
+    "delete": "删除",
+    "addTags": "添加标签",
+    "removeTags": "移除标签",
+    "selectAllCards": "全选",
+    "deselectAllCards": "取消全选",
+    "batchOperations": "批量操作"
+  },
+  "connectionError": {
+    "title": "连接错误",
+    "message": "AnkiConnect 未连接。请确保 Anki 正在运行。",
+    "ankiNotRunning": "无法连接到 AnkiConnect。请确保已安装 AnkiConnect 插件且 Anki 正在运行。"
+  }
+}

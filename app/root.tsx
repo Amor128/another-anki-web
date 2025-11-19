@@ -6,22 +6,47 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
-
+import { I18nextProvider } from "react-i18next";
+import { createContext, useContext, useState } from "react";
 import type { Route } from "./+types/root";
+import { Theme, ThemePanel } from "@radix-ui/themes";
+import i18n from "./i18n/config";
+import { Header } from "./components/Header";
 import "./app.css";
+import "@radix-ui/themes/styles.css";
 
-export const links: Route.LinksFunction = () => [
-  { rel: "preconnect", href: "https://fonts.googleapis.com" },
-  {
-    rel: "preconnect",
-    href: "https://fonts.gstatic.com",
-    crossOrigin: "anonymous",
-  },
-  {
-    rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
-  },
-];
+interface ThemePanelContextType {
+  isOpen: boolean;
+  setIsOpen: (open: boolean) => void;
+}
+
+const ThemePanelContext = createContext<ThemePanelContextType | undefined>(
+  undefined
+);
+
+export function useThemePanel() {
+  const context = useContext(ThemePanelContext);
+  if (!context) {
+    throw new Error("useThemePanel must be used within a Layout");
+  }
+  return context;
+}
+
+function LayoutContent({ children }: { children: React.ReactNode }) {
+  const [isThemePanelOpen, setIsThemePanelOpen] = useState(false);
+
+  return (
+    <ThemePanelContext.Provider
+      value={{ isOpen: isThemePanelOpen, setIsOpen: setIsThemePanelOpen }}
+    >
+      <Header />
+      <main>{children}</main>
+      <ScrollRestoration />
+      {isThemePanelOpen && <ThemePanel />}
+      <Scripts />
+    </ThemePanelContext.Provider>
+  );
+}
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -33,9 +58,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
-        <ScrollRestoration />
-        <Scripts />
+        <I18nextProvider i18n={i18n}>
+          <Theme>
+            <LayoutContent>{children}</LayoutContent>
+          </Theme>
+        </I18nextProvider>
       </body>
     </html>
   );

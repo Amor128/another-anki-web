@@ -1,0 +1,87 @@
+{
+  "common": {
+    "appName": "Anki Web",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "search": "Search"
+  },
+  "navigation": {
+    "home": "Home",
+    "browser": "Browser",
+    "addNote": "Add Note",
+    "settings": "Settings"
+  },
+  "home": {
+    "title": "Welcome to Anki Web",
+    "subtitle": "A modern web interface for managing your Anki cards using AnkiConnect.",
+    "browserTitle": "Browser",
+    "browserDescription": "Browse and manage your cards",
+    "addNoteTitle": "Add Note",
+    "addNoteDescription": "Create a new note",
+    "studyTitle": "Study",
+    "studyDescription": "Coming soon...",
+    "featuresTitle": "Features",
+    "features": [
+      "Search cards with Anki query syntax",
+      "View detailed card information",
+      "Manage tags and card status",
+      "Batch operations on cards",
+      "View learning statistics"
+    ],
+    "requirementsTitle": "Requirements",
+    "requirements": [
+      "Anki Desktop installed and running",
+      "AnkiConnect plugin installed",
+      "AnkiConnect listening on http://localhost:8765"
+    ]
+  },
+  "addNote": {
+    "title": "Add Note",
+    "deck": "Deck",
+    "noteType": "Note Type",
+    "fields": "Fields",
+    "tags": "Tags",
+    "tagsPlaceholder": "Enter tags separated by spaces...",
+    "tagsHint": "Separate multiple tags with spaces",
+    "createButton": "Create Note",
+    "creating": "Creating...",
+    "successMessage": "Note created successfully!",
+    "selectDeck": "Select a deck...",
+    "selectNoteType": "Select a note type...",
+    "noDeckAvailable": "No decks available",
+    "noModelsAvailable": "No models available",
+    "loadingDecks": "Loading...",
+    "errorLoadingDecks": "Error loading decks",
+    "validation": {
+      "selectDeck": "Please select a deck",
+      "selectModel": "Please select a model",
+      "fillAllFields": "Please fill in all fields"
+    },
+    "error": "Failed to create note. Please try again."
+  },
+  "browser": {
+    "title": "Browser",
+    "searchPlaceholder": "Search cards...",
+    "noResults": "No cards found",
+    "cardCount": "Cards found",
+    "suspend": "Suspend",
+    "unsuspend": "Resume",
+    "delete": "Delete",
+    "addTags": "Add Tags",
+    "removeTags": "Remove Tags",
+    "selectAllCards": "Select All",
+    "deselectAllCards": "Deselect All",
+    "batchOperations": "Batch Operations"
+  },
+  "connectionError": {
+    "title": "Connection Error",
+    "message": "AnkiConnect is not connected. Please make sure Anki is running.",
+    "ankiNotRunning": "AnkiConnect is not reachable. Make sure the AnkiConnect plugin is installed and Anki is running."
+  }
+}

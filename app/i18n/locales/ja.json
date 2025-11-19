@@ -1,0 +1,87 @@
+{
+  "common": {
+    "appName": "Anki ウェブ版",
+    "loading": "読み込み中...",
+    "error": "エラー",
+    "success": "成功",
+    "cancel": "キャンセル",
+    "submit": "送信",
+    "delete": "削除",
+    "edit": "編集",
+    "close": "閉じる",
+    "search": "検索"
+  },
+  "navigation": {
+    "home": "ホーム",
+    "browser": "ブラウザ",
+    "addNote": "ノートを追加",
+    "settings": "設定"
+  },
+  "home": {
+    "title": "Anki ウェブ版へようこそ",
+    "subtitle": "AnkiConnect を使用して Anki カードを管理するための最新のウェブインターフェース。",
+    "browserTitle": "ブラウザ",
+    "browserDescription": "カードを閲覧して管理する",
+    "addNoteTitle": "ノートを追加",
+    "addNoteDescription": "新しいノートを作成する",
+    "studyTitle": "学習",
+    "studyDescription": "近日公開予定...",
+    "featuresTitle": "機能",
+    "features": [
+      "Anki クエリ構文でカードを検索",
+      "詳細なカード情報を表示",
+      "タグとカードステータスを管理",
+      "カードを一括操作",
+      "学習統計を表示"
+    ],
+    "requirementsTitle": "システム要件",
+    "requirements": [
+      "Anki Desktop がインストールされており実行中",
+      "AnkiConnect プラグインがインストール済み",
+      "AnkiConnect が http://localhost:8765 でリッスン中"
+    ]
+  },
+  "addNote": {
+    "title": "ノートを追加",
+    "deck": "デッキ",
+    "noteType": "ノートタイプ",
+    "fields": "フィールド",
+    "tags": "タグ",
+    "tagsPlaceholder": "タグをスペースで区切って入力...",
+    "tagsHint": "複数のタグはスペースで区切る",
+    "createButton": "ノートを作成",
+    "creating": "作成中...",
+    "successMessage": "ノートが正常に作成されました！",
+    "selectDeck": "デッキを選択...",
+    "selectNoteType": "ノートタイプを選択...",
+    "noDeckAvailable": "利用可能なデッキがありません",
+    "noModelsAvailable": "利用可能なモデルがありません",
+    "loadingDecks": "読み込み中...",
+    "errorLoadingDecks": "デッキの読み込みエラー",
+    "validation": {
+      "selectDeck": "デッキを選択してください",
+      "selectModel": "モデルを選択してください",
+      "fillAllFields": "すべてのフィールドに入力してください"
+    },
+    "error": "ノートの作成に失敗しました。もう一度お試しください。"
+  },
+  "browser": {
+    "title": "ブラウザ",
+    "searchPlaceholder": "カードを検索...",
+    "noResults": "カードが見つかりません",
+    "cardCount": "見つかったカード",
+    "suspend": "保留",
+    "unsuspend": "再開",
+    "delete": "削除",
+    "addTags": "タグを追加",
+    "removeTags": "タグを削除",
+    "selectAllCards": "すべてを選択",
+    "deselectAllCards": "選択を解除",
+    "batchOperations": "一括操作"
+  },
+  "connectionError": {
+    "title": "接続エラー",
+    "message": "AnkiConnect が接続されていません。Anki が実行中であることを確認してください。",
+    "ankiNotRunning": "AnkiConnect に接続できません。AnkiConnect プラグインがインストールされており、Anki が実行中であることを確認してください。"
+  }
+}

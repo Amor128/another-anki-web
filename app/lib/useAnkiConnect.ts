@@ -349,28 +349,60 @@ export function useInitializeModels() {
  * Use this in components to get all models and metadata
  */
 export function useModels() {
-  const [modelsState, setModelsState] = useState<ModelsState>(
-    modelsCache || {
-      models: [],
-      modelNameToId: {},
-      isLoading: false,
-      error: null,
-      initialized: false,
+  const { client } = useAnkiConnect({ autoCheck: false });
+  const [modelsState, setModelsState] = useState<ModelsState>({
+    models: [],
+    modelNameToId: {},
+    isLoading: true,
+    error: null,
+    initialized: false,
+  });
+
+  const loadModels = useCallback(async () => {
+    setModelsState((prev) => ({ ...prev, isLoading: true }));
+    try {
+      // Fetch model names and IDs
+      const modelNameToId = await client.modelNamesAndIds();
+
+      // Extract model IDs
+      const modelIds = Object.values(modelNameToId);
+
+      // Fetch detailed model information
+      let detailedModels: Record<string, any>[] = [];
+      if (modelIds.length > 0) {
+        detailedModels = await client.findModelsById(modelIds);
+      }
+
+      // Transform models to include id and name
+      const models: Model[] = detailedModels.map((model) => ({
+        ...model,
+        id: model.id,
+        name: model.name,
+      }));
+
+      setModelsState({
+        models,
+        modelNameToId,
+        isLoading: false,
+        error: null,
+        initialized: true,
+      });
+    } catch (err) {
+      const errorMessage =
+        err instanceof AnkiConnectError
+          ? err.message
+          : "Failed to load models";
+      setModelsState((prev) => ({
+        ...prev,
+        error: errorMessage,
+        isLoading: false,
+      }));
     }
-  );
+  }, [client]);
 
   useEffect(() => {
-    const listener = () => {
-      if (modelsCache) {
-        setModelsState(modelsCache);
-      }
-    };
+    loadModels();
+  }, [loadModels]);
 
-    modelsCacheListeners.add(listener);
-    return () => {
-      modelsCacheListeners.delete(listener);
-    };
-  }, []);
-
-  return modelsState;
+  return { ...modelsState, refresh: loadModels };
 }

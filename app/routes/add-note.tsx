@@ -60,12 +60,6 @@ export default function AddNotePage() {
       return;
     }
 
-    // Check if all fields are filled
-    if (fieldNames.some((fieldName: string) => !fieldValues[fieldName]?.trim())) {
-      setSubmitError(t("addNote.validation.fillAllFields"));
-      return;
-    }
-
     setIsSubmitting(true);
 
     try {
@@ -102,8 +96,7 @@ export default function AddNotePage() {
   const isFormValid =
     selectedDeck &&
     selectedModel &&
-    fieldNames.length > 0 &&
-    fieldNames.every((fieldName: string) => fieldValues[fieldName]?.trim());
+    fieldNames.length > 0;
 
   if (!isConnected) {
     return (
@@ -217,7 +210,7 @@ export default function AddNotePage() {
                 {fieldNames.map((fieldName: string) => (
                   <Flex key={fieldName} direction="column" gap="2">
                     <label htmlFor={fieldName} className="text-sm font-medium">
-                      {fieldName} <span className="text-red-500">*</span>
+                      {fieldName}
                     </label>
                     <TextField.Root
                       id={fieldName}

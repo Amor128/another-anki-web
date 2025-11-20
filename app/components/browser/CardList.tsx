@@ -21,7 +21,6 @@ interface CardRow {
 
 const CARD_LIST_FIELDS = [
   { name: "SortField", key: "sortField", width: "200px" },
-  // { name: "Due", key: "due", width: "80px", align: "right" },
   { name: "Interval", key: "interval", width: "96px", align: "left" },
   { name: "Reps", key: "reps", width: "96px", align: "left" },
 ];
@@ -136,103 +135,27 @@ export default function BrowserCardList({
   }
 
   return (
-    <Flex direction="column">
-      {/* Table Container */}
-      <Box style={{ flex: 1, overflowY: "auto", overflowX: "auto" }}>
-        {cards.length === 0 ? (
-          <Flex align="center" justify="center" direction="column">
-            <Text weight="bold" mb="1">
-              No cards found
-            </Text>
-            <Text size="2">Try adjusting your search query</Text>
-          </Flex>
-        ) : (
-          <Table.Root variant="surface">
-            <Table.Header>
-              <Table.Row>
-                {CARD_LIST_FIELDS.map((field) => (
-                  <Table.ColumnHeaderCell
-                    key={field.key}
-                    style={{
-                      width: field.width === "auto" ? undefined : field.width,
-                      minWidth: field.width === "auto" ? "200px" : undefined,
-                      textAlign: field.align as any,
-                    }}
-                  >
-                    {field.name}
-                  </Table.ColumnHeaderCell>
-                ))}
-              </Table.Row>
-            </Table.Header>
-            <Table.Body>
-              {cards.map((card) => {
-                const isSelectedCard = selectedCardId === card.id;
-
-                return (
-                  <Table.Row
-                    key={card.id}
-                    onClick={() => onSelectCard(card.id)}
-                    style={{
-                      cursor: "pointer",
-                      background: isSelectedCard
-                        ? "var(--accent-3)"
-                        : "transparent",
-                    }}
-                    onMouseEnter={(e) => {
-                      if (!isSelectedCard) {
-                        (e.currentTarget as HTMLElement).style.background =
-                          "var(--gray-2)";
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLElement).style.background =
-                        isSelectedCard ? "var(--accent-3)" : "transparent";
-                    }}
-                  >
-                    {CARD_LIST_FIELDS.map((field) => {
-                      const value = card[field.key as keyof CardRow];
-                      let displayValue: React.ReactNode = value;
-
-                      if (field.key === "sortField") {
-                        displayValue = <Text truncate>{value as string}</Text>;
-                      } else if (field.key === "due") {
-                        displayValue = (value as number) > 0 ? value : "-";
-                      } else if (field.key === "interval") {
-                        displayValue = `${value}d`;
-                      }
-
-                      return (
-                        <Table.Cell
-                          key={field.key}
-                          style={{
-                            textAlign: field.align as any,
-                            overflow:
-                              field.key === "sortField" ? "hidden" : undefined,
-                          }}
-                        >
-                          {displayValue}
-                        </Table.Cell>
-                      );
-                    })}
-                  </Table.Row>
-                );
-              })}
-            </Table.Body>
-          </Table.Root>
-        )}
-      </Box>
-
-      {/* Footer with count */}
-      <Box
-        px="4"
-        py="3"
-        style={{
-          borderTop: "1px solid var(--gray-6)",
-          background: "var(--gray-2)",
-        }}
-      >
-        <Text size="2">{cards.length} cards</Text>
-      </Box>
-    </Flex>
+    <Table.Root variant="surface" className="h-full overflow-auto">
+      <Table.Header>
+        <Table.Row>
+          <Table.ColumnHeaderCell>SortField</Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell>Interval</Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell>Reps</Table.ColumnHeaderCell>
+        </Table.Row>
+      </Table.Header>
+      <Table.Body className="h-full overflow-scroll">
+        {cards.map((card) => {
+          return (
+            <Table.Row key={card.id} onClick={() => onSelectCard(card.id)}>
+              <Table.Cell>
+                <Text truncate>{card.sortField}</Text>
+              </Table.Cell>
+              <Table.Cell>{card.interval}</Table.Cell>
+              <Table.Cell>{card.reps}</Table.Cell>
+            </Table.Row>
+          );
+        })}
+      </Table.Body>
+    </Table.Root>
   );
 }

@@ -17,13 +17,12 @@ export default function BrowserSearchBar({ onSearch }: SearchBarProps) {
   );
 
   return (
-    <form onSubmit={handleSearch} style={{ width: "100%" }}>
+    <form onSubmit={handleSearch} className="w-full">
       <TextField.Root
         size="2"
-        placeholder="Search cards..."
+        placeholder="Search..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        style={{ width: "100%" }}
       />
     </form>
   );

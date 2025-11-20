@@ -30,7 +30,6 @@ export default function BrowserNoteList({
   const [notes, setNotes] = useState<NoteRow[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
   const client = getAnkiConnectClient();
 
   // Search for notes
@@ -109,63 +108,29 @@ export default function BrowserNoteList({
   }
 
   return (
-    <Box className="overflow-auto flex-1">
-      {notes.length === 0 ? (
-        <Flex align="center" justify="center" height="100%" direction="column">
-          <Text weight="bold" mb="1">
-            No notes found
-          </Text>
-          <Text size="2">Try adjusting your search query</Text>
-        </Flex>
-      ) : (
-        <Box className="overflow-y-auto">
-          <Table.Root size="3">
-            <Table.Header>
-              <Table.Row>
-                <Table.ColumnHeaderCell>SortField</Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>Model</Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>Tags</Table.ColumnHeaderCell>
-              </Table.Row>
-            </Table.Header>
-            <Table.Body>
-              {notes.map((note) => {
-                const isSelectedNote = selectedNoteId === note.id;
-
-                return (
-                  <Table.Row
-                    key={note.id}
-                    onClick={() => onSelectNote(note.id)}
-                    style={{
-                      cursor: "pointer",
-                      background: isSelectedNote
-                        ? "var(--accent-3)"
-                        : "transparent",
-                    }}
-                    onMouseEnter={(e) => {
-                      if (!isSelectedNote) {
-                        (e.currentTarget as HTMLElement).style.background =
-                          "var(--gray-2)";
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLElement).style.background =
-                        isSelectedNote ? "var(--accent-3)" : "transparent";
-                    }}
-                  >
-                    <Table.Cell>
-                      <Text truncate>{note.sortField}</Text>
-                    </Table.Cell>
-                    <Table.Cell>{note.modelName}</Table.Cell>
-                    <Table.Cell>
-                      {note.tagCount > 0 ? `${note.tagCount}` : "-"}
-                    </Table.Cell>
-                  </Table.Row>
-                );
-              })}
-            </Table.Body>
-          </Table.Root>
-        </Box>
-      )}
-    </Box>
+    <Table.Root variant="surface" className="overflow-y-auto h-full">
+      <Table.Header>
+        <Table.Row>
+          <Table.ColumnHeaderCell>SortField</Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell>Model</Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell>Tags</Table.ColumnHeaderCell>
+        </Table.Row>
+      </Table.Header>
+      <Table.Body>
+        {notes.map((note) => {
+          return (
+            <Table.Row key={note.id} onClick={() => onSelectNote(note.id)}>
+              <Table.Cell>
+                <Text truncate>{note.sortField}</Text>
+              </Table.Cell>
+              <Table.Cell>{note.modelName}</Table.Cell>
+              <Table.Cell>
+                {note.tagCount > 0 ? `${note.tagCount}` : "-"}
+              </Table.Cell>
+            </Table.Row>
+          );
+        })}
+      </Table.Body>
+    </Table.Root>
   );
 }

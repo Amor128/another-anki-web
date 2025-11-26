@@ -58,6 +58,9 @@
     "noModelsAvailable": "No models available",
     "loadingDecks": "Loading...",
     "errorLoadingDecks": "Error loading decks",
+    "compoundSelection": "Quick Select (Deck + Type)",
+    "selectCompound": "Select a preset...",
+    "compoundHint": "Selecting a preset will auto-fill deck and note type, or choose manually",
     "validation": {
       "selectDeck": "Please select a deck",
       "selectModel": "Please select a model",

@@ -11,6 +11,18 @@ export const meta: Route.MetaFunction = () => [
   { name: "description", content: "Add a new note to your Anki deck" },
 ];
 
+interface CompoundPreset {
+  id: string;
+  label: string;
+  deck: string;
+  model: string;
+}
+
+const COMPOUND_PRESETS: CompoundPreset[] = [
+  { id: "japanese-compound", label: "日语组合", deck: "Japanese::组合", model: "日语组合" },
+  { id: "japanese-kanji", label: "日语汉字", deck: "Japanese::汉字", model: "日语汉字" },
+];
+
 export default function AddNotePage() {
   const { t } = useTranslation();
   const { client, isConnected, error: connectionError } = useAnkiConnect();
@@ -18,6 +30,7 @@ export default function AddNotePage() {
   const { data: deckNames, isLoading: decksLoading, error: decksError } = useDeckNames();
 
   // Form state
+  const [selectedCompound, setSelectedCompound] = useState<string>("");
   const [selectedDeck, setSelectedDeck] = useState<string>("");
   const [selectedModel, setSelectedModel] = useState<string>("");
   const [fieldValues, setFieldValues] = useState<Record<string, string>>({});
@@ -25,6 +38,19 @@ export default function AddNotePage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+
+  // Handle compound selection change
+  const handleCompoundChange = (presetId: string) => {
+    setSelectedCompound(presetId);
+    if (presetId) {
+      const preset = COMPOUND_PRESETS.find(p => p.id === presetId);
+      if (preset) {
+        setSelectedDeck(preset.deck);
+        setSelectedModel(preset.model);
+        setFieldValues({});
+      }
+    }
+  };
 
   // Get field names for the selected model
   const getFieldNamesForModel = () => {
@@ -141,6 +167,28 @@ export default function AddNotePage() {
 
         <form onSubmit={handleSubmit}>
           <Flex direction="column" gap="6">
+            {/* Compound Selection */}
+            <Flex direction="column" gap="2">
+              <label htmlFor="compound-select" className="text-sm font-medium">
+                {t("addNote.compoundSelection")}
+              </label>
+              <Select.Root value={selectedCompound} onValueChange={handleCompoundChange}>
+                <Select.Trigger id="compound-select" placeholder={t("addNote.selectCompound")} />
+                <Select.Content>
+                  <Select.Group>
+                    {COMPOUND_PRESETS.map((preset) => (
+                      <Select.Item key={preset.id} value={preset.id}>
+                        {preset.label}
+                      </Select.Item>
+                    ))}
+                  </Select.Group>
+                </Select.Content>
+              </Select.Root>
+              <Text size="1" color="gray">
+                {t("addNote.compoundHint")}
+              </Text>
+            </Flex>
+
             {/* Deck Selection */}
             <Flex direction="column" gap="2">
               <label htmlFor="deck-select" className="text-sm font-medium">

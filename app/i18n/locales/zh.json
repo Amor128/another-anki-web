@@ -58,6 +58,9 @@
     "noModelsAvailable": "没有可用的卡片类型",
     "loadingDecks": "加载中...",
     "errorLoadingDecks": "加载卡组时出错",
+    "compoundSelection": "快速选择 (卡组 + 类型)",
+    "selectCompound": "选择预设组合...",
+    "compoundHint": "选择预设组合将自动填充卡组和卡片类型，也可以手动选择",
     "validation": {
       "selectDeck": "请选择一个卡组",
       "selectModel": "请选择一个卡片类型",

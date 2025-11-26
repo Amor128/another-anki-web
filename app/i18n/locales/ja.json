@@ -58,6 +58,9 @@
     "noModelsAvailable": "利用可能なモデルがありません",
     "loadingDecks": "読み込み中...",
     "errorLoadingDecks": "デッキの読み込みエラー",
+    "compoundSelection": "クイック選択 (デッキ + タイプ)",
+    "selectCompound": "プリセットを選択...",
+    "compoundHint": "プリセットを選択すると、デッキとノートタイプが自動入力されます。手動で選択することもできます",
     "validation": {
       "selectDeck": "デッキを選択してください",
       "selectModel": "モデルを選択してください",

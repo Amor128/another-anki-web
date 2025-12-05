@@ -13,7 +13,6 @@ import i18n from "./i18n/config";
 import { Header } from "./components/Header";
 import "./app.css";
 import "@radix-ui/themes/styles.css";
-import { Footer } from "./components/Footer";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -28,7 +27,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <Flex className="h-screen flex-col">
               <Header />
               <Box className="w-full overflow-scroll">{children}</Box>
-              <Footer />
             </Flex>
             <Scripts />
           </Theme>

@@ -31,7 +31,7 @@ export function Welcome() {
           </Text>
 
           {/* Quick Actions */}
-          <Grid columns={{ initial: "1", md: "2" }} gap="4" mb="6">
+          <Grid columns={{ initial: "1", md: "3" }} gap="4" mb="6">
             <Link to="/browser" style={{ textDecoration: "none" }}>
               <Card
                 style={{
@@ -118,6 +118,52 @@ export function Welcome() {
                     </Text>
                     <Text size="2" style={{ color: "var(--gray-11)" }}>
                       {t("home.addNoteDescription")}
+                    </Text>
+                  </Box>
+                </Flex>
+              </Card>
+            </Link>
+
+            <Link to="/study" style={{ textDecoration: "none" }}>
+              <Card
+                style={{
+                  padding: "1.5rem",
+                  background: "var(--blue-3)",
+                  border: "2px solid var(--blue-6)",
+                  borderRadius: "var(--radius-3)",
+                  cursor: "pointer",
+                  transition: "all 0.2s",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = "var(--blue-8)";
+                  e.currentTarget.style.background = "var(--blue-4)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = "var(--blue-6)";
+                  e.currentTarget.style.background = "var(--blue-3)";
+                }}
+              >
+                <Flex align="center" gap="4">
+                  <Box
+                    style={{
+                      padding: "0.75rem",
+                      background: "var(--blue-9)",
+                      color: "white",
+                      borderRadius: "var(--radius-2)",
+                    }}
+                  >
+                    <FileTextIcon style={{ width: "24px", height: "24px" }} />
+                  </Box>
+                  <Box>
+                    <Text
+                      weight="bold"
+                      size="4"
+                      style={{ color: "var(--gray-12)" }}
+                    >
+                      {t("home.studyTitle")}
+                    </Text>
+                    <Text size="2" style={{ color: "var(--gray-11)" }}>
+                      {t("home.studyDescription")}
                     </Text>
                   </Box>
                 </Flex>

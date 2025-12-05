@@ -52,7 +52,7 @@ export interface CardInfo {
   backSide: string;
   modelName: string;
   modelId: number;
-  noteTags: string[];
+  noteTags?: string[];
   question: string;
   answer: string;
   templateName: string;
@@ -315,6 +315,63 @@ export class AnkiConnectClient {
     return this.request("deleteCards", { cards: cardIds });
   }
 
+  /**
+   * Answer cards with ease ratings
+   * @param answers Array of {cardId, ease} where ease is 1-4 (Again/Hard/Good/Easy)
+   */
+  async answerCards(answers: Array<{ cardId: number; ease: number }>): Promise<boolean[]> {
+    return this.request("answerCards", { answers });
+  }
+
+  /**
+   * Check if cards are due for review
+   */
+  async areDue(cardIds: number[]): Promise<boolean[]> {
+    return this.request("areDue", { cards: cardIds });
+  }
+
+  /**
+   * Check if cards are suspended
+   */
+  async areSuspended(cardIds: number[]): Promise<boolean[]> {
+    return this.request("areSuspended", { cards: cardIds });
+  }
+
+  /**
+   * Bury cards (hide until next day)
+   */
+  async buryCards(cardIds: number[]): Promise<null> {
+    return this.request("buryCards", { cards: cardIds });
+  }
+
+  /**
+   * Set flag for cards (0: no flag, 1: red, 2: orange, 3: green, 4: blue)
+   */
+  async setSpecificValueOfCard(cardId: number, keys: string[], newValues: string[]): Promise<null> {
+    return this.request("setSpecificValueOfCard", { card: cardId, keys, newValues });
+  }
+
+  /**
+   * Set flag for cards (0-4: none/red/orange/green/blue)
+   */
+  async setCardFlag(cardId: number, flag: number): Promise<null> {
+    // 使用专门的 API（AnkiConnect 2.1.56+）
+    try {
+      return await this.request("setCardFlag", { cards: [cardId], flag });
+    } catch (error) {
+      // 如果不支持，回退到 setSpecificValueOfCard
+      console.warn("setCardFlag not supported, using setSpecificValueOfCard");
+      return this.setSpecificValueOfCard(cardId, ["flags"], [flag.toString()]);
+    }
+  }
+
+  /**
+   * Get intervals for a card based on different ease ratings
+   */
+  async getIntervals(cardIds: number[], complete: boolean = false): Promise<number[][]> {
+    return this.request("getIntervals", { cards: cardIds, complete });
+  }
+
   // ========================================================================
   // Note Operations
   // ========================================================================
@@ -457,6 +514,27 @@ export class AnkiConnectClient {
    */
   async setClipboard(text: string): Promise<null> {
     return this.request("setClipboard", { text });
+  }
+
+  /**
+   * Retrieve media file as base64
+   */
+  async retrieveMediaFile(filename: string): Promise<string | null> {
+    return this.request("retrieveMediaFile", { filename });
+  }
+
+  /**
+   * Get the names of media files matching a pattern
+   */
+  async getMediaFilesNames(pattern: string): Promise<string[]> {
+    return this.request("getMediaFilesNames", { pattern });
+  }
+
+  /**
+   * Get the directory path where Anki stores media files
+   */
+  async getMediaDirPath(): Promise<string> {
+    return this.request("getMediaDirPath");
   }
 }
 

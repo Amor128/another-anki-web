@@ -7,7 +7,7 @@ export function Header() {
     <Flex align="center" justify="between" p="4">
       <Link to="/" style={{ textDecoration: "none" }}>
         <Heading size="6" style={{ cursor: "pointer" }}>
-          Anki Web
+          Another Anki Web
         </Heading>
       </Link>
       <Flex gap="2" align="center">

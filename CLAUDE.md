@@ -66,6 +66,7 @@ Routes should follow the structure:
 2. **Component development**: Place new route components in `app/routes/`
 3. **Styling**: Use Tailwind CSS classes; can also use Radix UI components from `@radix-ui/themes`
 4. **Testing changes**: Run `npm run dev` to see live updates
+5. **i18n**: lookup at `app/i18n/`; add i18n support for English, Chinese and Japanese
 
 ## Key Features
 

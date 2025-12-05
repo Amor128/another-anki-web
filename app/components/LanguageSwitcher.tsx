@@ -13,18 +13,20 @@ export function LanguageSwitcher() {
   return (
     <Flex align="center" gap="2">
       <GlobeIcon width="18" height="18" />
-      <Select.Root value={i18n.language} onValueChange={handleLanguageChange}>
-        <Select.Trigger />
-        <Select.Content>
-          <Select.Group>
-            {Object.entries(SUPPORTED_LANGUAGES).map(([code, name]) => (
-              <Select.Item key={code} value={code}>
-                {name}
-              </Select.Item>
-            ))}
-          </Select.Group>
-        </Select.Content>
-      </Select.Root>
+      <div className="w-[100px]">
+        <Select.Root value={i18n.language} onValueChange={handleLanguageChange}>
+          <Select.Trigger className="!w-full" />
+          <Select.Content>
+            <Select.Group>
+              {Object.entries(SUPPORTED_LANGUAGES).map(([code, name]) => (
+                <Select.Item key={code} value={code}>
+                  {name}
+                </Select.Item>
+              ))}
+            </Select.Group>
+          </Select.Content>
+        </Select.Root>
+      </div>
     </Flex>
   );
 }

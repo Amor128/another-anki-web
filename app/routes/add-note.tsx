@@ -1,6 +1,6 @@
 import type { Route } from "./+types/add-note";
-import { useState } from "react";
-import { Box, Button, Flex, Heading, Text, TextField, Select, Callout } from "@radix-ui/themes";
+import { useState, useEffect, useCallback } from "react";
+import { Box, Button, Flex, Heading, Text, TextField, TextArea, Select, Callout } from "@radix-ui/themes";
 import { InfoCircledIcon, CheckIcon } from "@radix-ui/react-icons";
 import { useAnkiConnect, useModels, useDeckNames } from "../lib/useAnkiConnect";
 import { AnkiConnectError } from "../lib/ankiconnect";
@@ -21,6 +21,7 @@ interface CompoundPreset {
 const COMPOUND_PRESETS: CompoundPreset[] = [
   { id: "japanese-compound", label: "日语组合", deck: "Japanese::组合", model: "日语组合" },
   { id: "japanese-kanji", label: "日语汉字", deck: "Japanese::汉字", model: "日语汉字" },
+  { id: "japanese-bunnpo", label: "日语文法", deck: "Japanese::文法", model: "日语文法" },
 ];
 
 export default function AddNotePage() {
@@ -70,8 +71,10 @@ export default function AddNotePage() {
   };
 
   // Handle form submission
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = useCallback(async (e?: React.FormEvent) => {
+    if (e) {
+      e.preventDefault();
+    }
     setSubmitError(null);
     setSubmitSuccess(false);
 
@@ -116,13 +119,23 @@ export default function AddNotePage() {
     } finally {
       setIsSubmitting(false);
     }
-  };
+  }, [selectedDeck, selectedModel, fieldValues, tags, client, t]);
 
   // Check if form is valid
   const isFormValid =
     selectedDeck &&
     selectedModel &&
     fieldNames.length > 0;
+
+  // Handle keyboard shortcuts (Cmd+Enter or Ctrl+Enter)
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+      e.preventDefault();
+      if (isFormValid && !isSubmitting) {
+        handleSubmit();
+      }
+    }
+  }, [isFormValid, isSubmitting, handleSubmit]);
 
   if (!isConnected) {
     return (
@@ -165,7 +178,7 @@ export default function AddNotePage() {
           </Callout.Root>
         )}
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} onKeyDown={handleKeyDown}>
           <Flex direction="column" gap="6">
             {/* Compound Selection */}
             <Flex direction="column" gap="2">
@@ -260,11 +273,12 @@ export default function AddNotePage() {
                     <label htmlFor={fieldName} className="text-sm font-medium">
                       {fieldName}
                     </label>
-                    <TextField.Root
+                    <TextArea
                       id={fieldName}
                       placeholder={`${t("common.search")} ${fieldName}...`}
                       value={fieldValues[fieldName] || ""}
                       onChange={(e) => handleFieldChange(fieldName, e.target.value)}
+                      rows={3}
                     />
                   </Flex>
                 ))}
